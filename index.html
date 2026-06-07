@@ -1,25 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cocktail API</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <header>
-        <h1>Vorlage für interaktive Medien II</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SRF 1 Song Finder</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <h1>SRF 1 Song Finder</h1>
+      <p class="subtitle">Finde Songs, die heute auf SRF 1 gespielt wurden.</p>
 
-    </header>
-    <main>
-        <h2>Main Content</h2>
-        <p>This is the main content of the page.</p>
+      <section class="current-song">
+        <div class="loader-overlay hidden" id="loaderOverlay">
+          <div class="loader"></div>
+        </div>
+        <div class="audio-animation" id="audioAnimation"></div>
+        <div class="song-carousel" id="songCarousel">
+          <p class="label">Aktuell / zuletzt gespielt</p>
+          <h2 id="currentTitle">Lädt...</h2>
+          <p id="currentArtist"></p>
+          <p id="currentTime"></p>
+          <p id="liveTimer"></p>
+          <div class="links" id="currentLinks"></div>
+        </div>
+      </section>
 
+      <section class="time-search">
+        <h2>Song nach Uhrzeit suchen</h2>
+        <div class="search-grid">
+          <div>
+            <label for="timeInput">Uhrzeit</label>
+            <input type="time" id="timeInput" />
+          </div>
+          <div>
+            <label for="amountInput">Anzahl Songs</label>
+            <input type="number" id="amountInput" min="1" max="20" value="5" />
+          </div>
+          <div>
+            <label for="modeSelect" class="label-with-tooltip">
+              Suchmodus
+              <span class="tooltip-icon">
+                ?
+                <span class="tooltip-text" id="modeTooltip">
+                  Zeigt den Song, der zur gewählten Uhrzeit lief, sowie die
+                  umliegenden Songs.
+                </span>
+              </span>
+            </label>
+            <select id="modeSelect">
+              <option value="center">Rund um laufenden Song</option>
+              <option value="after">Ab laufendem Song</option>
+              <option value="before">Bis laufenden Song</option>
+            </select>
+          </div>
+        </div>
+        <div class="button-row">
+          <button id="searchTimeBtn">Songs suchen</button>
+          <button id="resetSearchBtn" class="reset-button">
+            Suche zurücksetzen
+          </button>
+        </div>
+      </section>
+
+      <button id="openHistoryBtn" class="secondary-button">
+        Vergangene Songs anzeigen
+      </button>
+      <button id="refreshBtn" class="secondary-button">Aktualisieren</button>
+      <p class="status" id="status"></p>
     </main>
-    <footer>
-        <p>This is the footer of the page.</p>
 
-    </footer>
-    <script src="js/script.js" type="module"></script>
-</body>
+    <section class="modal hidden" id="historyModal">
+      <div class="modal-backdrop" data-close-modal="historyModal"></div>
+      <div class="modal-panel">
+        <div class="modal-header">
+          <h2>Vergangene Songs</h2>
+          <button class="close-button" data-close-modal="historyModal">
+            ×
+          </button>
+        </div>
+        <div class="song-list" id="historyList"></div>
+      </div>
+    </section>
+
+    <section class="modal hidden" id="searchModal">
+      <div class="modal-backdrop" data-close-modal="searchModal"></div>
+      <div class="modal-panel">
+        <div class="modal-header">
+          <h2>Suchresultate</h2>
+          <button class="close-button" data-close-modal="searchModal">×</button>
+        </div>
+        <div class="song-list" id="timeSearchResults"></div>
+      </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+    <script src="/js/script.js"></script>
+  </body>
 </html>
